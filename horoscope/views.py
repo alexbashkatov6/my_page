@@ -62,7 +62,7 @@ type_to_sign_list = {
 }
 
 
-def index(request):
+def old_index(request):
     zodiacs = list(zodiac_dict)
     li_elements = ""
     for sign in zodiacs:
@@ -74,6 +74,15 @@ def index(request):
     </ul>
     """
     return HttpResponse(response)
+
+
+def index(request):
+    zodiacs = list(zodiac_dict)
+    context = {
+        "zodiacs": zodiacs
+    }
+    # f"<li> <a href='{redirect_path}'> {sign.title()} </a> </li>"
+    return render(request, "horoscope/index.html", context=context)
 
 
 def get_type_list(request):  # , sign_zodiac: str
