@@ -105,6 +105,14 @@ def get_signs_for_type_list(request, sign_type: str):
     return HttpResponseNotFound("Неизвестный тип знаков зодиака {}".format(sign_type))
 
 
+def get_info_by_yyyy(request, sign_zodiac: int):
+    return HttpResponse(f"Year {sign_zodiac}")
+
+
+def get_info_by_float(request, sign_zodiac: float):
+    return HttpResponse(f"Float {sign_zodiac}")
+
+
 def get_info_by_data(request, month: int, day: int):
     # 1. Check month in year range
     if month > 12:
