@@ -15,11 +15,12 @@ week_days_dict = {"monday": "понедельник",
 
 
 def get_info(request, week_day):
-    russian_day = week_days_dict.get(week_day)
-    if russian_day:
-        return HttpResponse(russian_day)
-    else:
-        return HttpResponseNotFound("Неизвестный день недели {}".format(week_day))
+    return render(request, "week_days/greeting.html")
+    # russian_day = week_days_dict.get(week_day)
+    # if russian_day:
+    #     return HttpResponse(russian_day)
+    # else:
+    #     return HttpResponseNotFound("Неизвестный день недели {}".format(week_day))
 
 
 def get_info_int(request, week_day):

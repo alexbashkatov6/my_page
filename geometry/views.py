@@ -6,15 +6,18 @@ from django.urls import reverse
 
 # Create your views here.
 def get_rectangle_area(request, width, height):
-    return HttpResponse("Площадь прямоугольника размером {}х{} равна {}".format(width, height, width*height))
+    return render(request, "geometry/rectangle.html")
+    # return HttpResponse("Площадь прямоугольника размером {}х{} равна {}".format(width, height, width*height))
 
 
 def get_square_area(request, width):
-    return HttpResponse("Площадь квадрата размером {}х{} равна {}".format(width, width, width*width))
+    return render(request, "geometry/square.html")
+    # return HttpResponse("Площадь квадрата размером {}х{} равна {}".format(width, width, width*width))
 
 
 def get_circle_area(request, radius):
-    return HttpResponse("Площадь круга радиусом {} равна {}".format(radius, math.pi*radius*radius))
+    return render(request, "geometry/circle.html")
+    # return HttpResponse("Площадь круга радиусом {} равна {}".format(radius, math.pi*radius*radius))
 
 
 def get_rectangle_area_redir(request, width, height):

@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "horoscope",
+    "week_days",
+    "geometry"
 ]
 
 MIDDLEWARE = [
@@ -55,6 +58,9 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
+        # 'DIRS': [
+        #     BASE_DIR / "horoscope" / "templates"
+        # ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
