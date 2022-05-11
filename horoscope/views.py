@@ -25,6 +25,34 @@ zodiac_dict = {'aries': 'Овен - первый знак зодиака, пла
                'aquarius': 'Водолей - одиннадцатый знак зодиака, планеты Уран и Сатурн (с 21 января по 19 февраля).',
                'pisces': 'Рыбы - двенадцатый знак зодиака, планеты Юпитер (с 20 февраля по 20 марта).', }
 
+zodiac_bounds = {
+                 'aquarius': (21, 1),
+                 'pisces': (20, 2),
+                 'aries': (21, 3),  # , (20, 4)
+                 'taurus': (21, 4),  # , (21, 5)
+                 'gemini': (22, 5),  # , (21, 6)
+                 'cancer': (22, 6),  # , (22, 7)
+                 'leo': (23, 7),  # , (21, 8)
+                 'virgo': (22, 8),  # , (23, 9)
+                 'libra': (24, 9),  # , (23, 10)
+                 'scorpio': (24, 10),  # , (22, 11)
+                 'sagittarius': (23, 11),  # , (22, 12)
+                 'capricorn': (23, 12), }
+
+month_max_days = {1: 31,
+                  2: 29,
+                  3: 31,
+                  4: 30,
+                  5: 31,
+                  6: 30,
+                  7: 31,
+                  8: 31,
+                  9: 30,
+                  10: 31,
+                  11: 30,
+                  12: 31
+                  }
+
 type_to_sign_list = {
     'fire': ['aries', 'leo', 'sagittarius'],
     'earth': ['taurus', 'virgo', 'capricorn'],
@@ -77,6 +105,26 @@ def get_signs_for_type_list(request, sign_type: str):
     return HttpResponseNotFound("Неизвестный тип знаков зодиака {}".format(sign_type))
 
 
+def get_info_by_data(request, month: int, day: int):
+    # 1. Check month in year range
+    if month > 12:
+        return HttpResponseNotFound("Введен некорректный номер месяца (>12): {}".format(month))
+    # 2. Check day in month days range
+    if day > month_max_days[month]:
+        return HttpResponseNotFound("Введена некорректная дата: месяц {} день {}".format(month, day))
+    # 3. Search algorithm
+    prev_sign = 'capricorn'
+    for sign in zodiac_bounds:
+        start_day, start_month = zodiac_bounds[sign]
+        if month == start_month:
+            if day >= start_day:
+                return HttpResponse(f"Знак зодиака для месяц {month} день {day} = {sign}")
+            else:
+                return HttpResponse(f"Знак зодиака для месяц {month} день {day} = {prev_sign}")
+        prev_sign = sign
+    # return HttpResponse(f"Month {month} day {day}")
+
+
 def get_info(request, sign_zodiac: str):
     description = zodiac_dict.get(sign_zodiac)
     if description:
@@ -88,6 +136,6 @@ def get_info_by_number(request, sign_zodiac: int):
     zodiacs = list(zodiac_dict)
     if sign_zodiac > len(zodiacs):
         return HttpResponseNotFound("Неправильный номер знака зодиака {}".format(sign_zodiac))
-    name_zodiac = zodiacs[sign_zodiac-1]
+    name_zodiac = zodiacs[sign_zodiac - 1]
     redirect_url = reverse("horoscope-name", args=(name_zodiac,))
     return HttpResponseRedirect(redirect_url)
