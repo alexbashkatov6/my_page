@@ -145,9 +145,12 @@ def get_info_by_data(request, month: int, day: int):
 
 def get_info(request, sign_zodiac: str):
     description = zodiac_dict.get(sign_zodiac)
+    zodiacs = list(zodiac_dict)
     data = {
         "description_zodiac": description,
-        "sign": sign_zodiac.title()
+        "sign": sign_zodiac.title(),
+        "sign_name": description.split(" ")[0].title(),
+        "zodiacs": zodiacs
     }
     return render(request, "horoscope/info_zodiac.html", context=data)
     # response = render_to_string("horoscope/info_zodiac.html")

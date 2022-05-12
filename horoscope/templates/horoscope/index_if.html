@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Меню</title>
+</head>
+<body>
+    <ul>
+        {% for zodiac in zodiacs %}
+            {% if forloop.first %}
+                <li><b>{{ forloop.counter }} {{ zodiac | title }}</b></li>
+            {% elif forloop.last %}
+                <li style="color: red">{{ forloop.counter }} {{ zodiac | title }}</li>
+            {% else %}
+                <li>{{ forloop.counter }} {{ zodiac | title }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</body>
+</html>
